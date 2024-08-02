@@ -16,9 +16,10 @@ export const lambdaHandler = async (event) => {
         const record = event.Records[0];
         if (record) {
             messageBody = JSON.parse(record.body).Message;
+            console.log('Received message:', messageBody);
         }
         client = await pool.connect();
-        await upsertProduct(client, JSON.parse(messageBody));
+        await upsertProduct(JSON.parse(messageBody));
 
         return {
             statusCode: 200,
